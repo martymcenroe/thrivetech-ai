@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThriveTech.ai | Enterprise AI Architecture & Strategy</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent: #3b82f6; /* Enterprise Blue */
+            --accent-glow: rgba(59, 130, 246, 0.2);
+            --card-bg: #171717;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: left;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lead {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+        
+        /* Services Grid */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #333;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .icon {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* CTA Button */
+        .btn {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-dark);
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background-color: #e2e2e2;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #333;
+            margin-top: 6rem;
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <!-- Abstract Geometric T/AI Logo -->
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="8" fill="#171717"/>
+                    <path d="M12 12H28" stroke="#3B82F6" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M20 12V28" stroke="#3B82F6" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="28" cy="28" r="3" fill="#3B82F6"/>
+                </svg>
+                ThriveTech.ai
+            </div>
+            <div>
+                <a href="https://martymcenroe.ai" style="color: #fff; text-decoration: none; margin-left: 20px;">Portfolio</a>
+                <a href="https://linkedin.com/company/thrivetech-ai" style="color: #fff; text-decoration: none; margin-left: 20px;">LinkedIn</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <h1>Architecture for the<br>Agentic Era.</h1>
+            <p class="lead">We help enterprises transition from experimental AI to scalable, governed, and high-impact agentic systems.</p>
+            <a href="mailto:contact@thrivetech.ai" class="btn">Engage Services</a>
+        </section>
+
+        <div class="services">
+            <div class="card">
+                <span class="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 4v16"/></svg>
+                </span>
+                <h3>Strategic Architecture</h3>
+                <p>Designing the blueprint for enterprise AI adoption. We align technical capability with business ROI, ensuring your infrastructure is built for scale.</p>
+            </div>
+            <div class="card">
+                <span class="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </span>
+                <h3>MLOps & Governance</h3>
+                <p>Moving models from notebooks to production. We implement rigorous CI/CD pipelines, model monitoring, and compliance guardrails.</p>
+            </div>
+            <div class="card">
+                <span class="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                </span>
+                <h3>Serverless Agents</h3>
+                <p>Building "Scale-to-Zero" intelligent workforce solutions. Our specialty is event-driven architectures that minimize cost while maximizing responsiveness.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 ThriveTech.ai. All rights reserved.</p>
+            <p>Principal Architect: <a href="https://martymcenroe.ai" style="color: #3b82f6; text-decoration: none;">Marty McEnroe</a></p>
+        </footer>
+    </div>
+</body>
+</html>
