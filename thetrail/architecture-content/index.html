@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Packs carry the content | thetrail</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="bg-canvas text-ink font-sans" data-page="architecture-content">
+<a class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-surface-hi focus:px-3 focus:py-2 focus:rounded-md" href="#main">Skip to content</a>
+
+<div class="max-w-2xl mx-auto p-4 pb-16">
+  <header class="masthead">
+    <a class="text-xl tracking-wide" href="https://thetrail.online/">thetrail</a>
+    <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-mute">
+      <a class="hover:text-ink" href="../architecture/">Overview</a>
+      <a class="hover:text-ink" href="../architecture-worker/">The Worker</a>
+      <a class="hover:text-ink" href="../architecture-content/" aria-current="page">Packs</a>
+      <a class="hover:text-ink" href="../architecture-releases/">Releases</a>
+      <a class="hover:text-ink" href="../architecture-history/">History</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="py-8">
+      <p class="font-mono text-ink-mute text-xs uppercase tracking-widest mb-4">Architecture</p>
+      <h1 class="text-4xl font-normal tracking-wide leading-tight mb-4">Packs carry the content</h1>
+      <p class="text-ink-mute text-lg leading-relaxed">The product teaches Spanish on the Camino Francés, and we write the engine to assume neither. A trail pack holds the trail's data, and a language pack goes with it.</p>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">The engine is code. A trail is data.</h2>
+
+      <figure class="figure">
+        <svg viewBox="0 0 360 300" role="img" aria-labelledby="layers-title layers-desc">
+          <title id="layers-title">The engine and the two packs</title>
+          <desc id="layers-desc">The engine, in code, holds the walk, the speech wrapper, accounts and the pack
+          loader. A trail pack holds a route and its stages, encounters, characters and vocabulary. A language
+          pack holds the script, the paces and voices, and the rules for comparing text. The engine reads both
+          packs as declarations.</desc>
+
+          <text class="d-cap" x="6" y="20">CODE</text>
+          <rect class="d-box" x="6" y="30" width="348" height="96" rx="4"/>
+          <text class="d-label" x="20" y="56">The engine</text>
+          <text class="d-sub" x="20" y="78">The walk, the speech wrapper, accounts</text>
+          <text class="d-sub" x="20" y="98">The pack loader, and every gate</text>
+          <text class="d-sub" x="20" y="116">The content sits in the packs</text>
+
+          <path class="d-arrow" d="M 92 158 L 92 138"/>
+          <path class="d-head" d="M 92 126 L 87 138 L 97 138 Z"/>
+          <path class="d-arrow" d="M 268 158 L 268 138"/>
+          <path class="d-head" d="M 268 126 L 263 138 L 273 138 Z"/>
+
+          <text class="d-cap" x="6" y="150">DATA</text>
+          <rect class="d-box" x="6" y="160" width="170" height="128" rx="4"/>
+          <text class="d-label" x="18" y="186">A trail pack</text>
+          <text class="d-sub" x="18" y="208">Ordered stages</text>
+          <text class="d-sub" x="18" y="228">Encounters, characters</text>
+          <text class="d-sub" x="18" y="248">Vocabulary, pictures</text>
+          <text class="d-sub" x="18" y="268">Licenses</text>
+
+          <rect class="d-box" x="184" y="160" width="170" height="128" rx="4"/>
+          <text class="d-label" x="196" y="186">A language pack</text>
+          <text class="d-sub" x="196" y="208">Script and direction</text>
+          <text class="d-sub" x="196" y="228">Paces and voices</text>
+          <text class="d-sub" x="196" y="248">Grammar points</text>
+          <text class="d-sub" x="196" y="268">Rules to compare text</text>
+        </svg>
+        <figcaption>Adding a trail means writing a pack. A test holds each pack to its schema, and no pack carries code.</figcaption>
+      </figure>
+
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The trail pack holds each fact that changes with the trail, and the language pack holds each rule that changes with the language. A learner reads strings from both packs.</p>
+        <p>An algorithm that varies by language becomes a named strategy in the engine, and the pack selects it by name. The Spanish pack declares <code>whitespace</code> for segmentation and <code>gregorian-fixed</code>, a calendar of fixed dates.</p>
+        <p>A route is an ordered list of stages with a declared finish. The Camino Francés runs through sixty-six stages to Santiago. The Shikoku pilgrimage ends where it began, and the same model holds it, because a pack declares its route as a line or a circuit.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">A build publishes a closed list.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The build copies an enumerated list of files, which leaves out a pack's working files, such as its list of recordings. A file missing from that list never reaches a learner.</p>
+        <p>An audit reads the whole upload set before each upload, for credentials and for file types that are never public. The Worker then serves a pack's files to a signed-in learner whose account has access to that pack, and to the check that follows each upload.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Blind translation checks the Spanish.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The product requires review of all generated content before it reaches a learner. The product's curator reads no Spanish, so a curator's reading proves nothing about a Spanish line. A blind round trip does that review. Its steps use large language models (LLMs), and a gloss is the English meaning stored beside each Spanish string.</p>
+      </div>
+      <ol class="list-decimal pl-6 mt-4 space-y-2 text-ink-mute leading-relaxed">
+        <li>Two translators from different LLM families put each Spanish string into English without seeing its gloss.</li>
+        <li>A judge reads the Spanish beside the gloss and both translations. A seeded shuffle keeps the judge from telling those three apart.</li>
+        <li>The judge rules whether the gloss and both translations say what the Spanish says, and whether a speaker from Spain would say it.</li>
+        <li>A judge from the other family reads every string the first judge did not pass, and that verdict goes on the record beside the first verdict.</li>
+      </ol>
+      <div class="space-y-3 text-ink-mute leading-relaxed mt-4">
+        <p>We rewrite a failed string to the judge's reading and send it through again. The record of every round sits in the repository.</p>
+      </div>
+
+      <h3 class="text-xl font-normal tracking-wide mt-5 mb-2">A missing record stops the merge.</h3>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A contract test lists every string a learner can read in both packs, and it fails on any string with no passing record. Continuous integration (CI) runs that test on every pull request that touches a pack, and the required check stops the merge. Production builds only commits a test site has already run, so a string with no record never reaches a learner.</p>
+        <p>The contract test runs ahead of the upload, and the Worker does not enforce review at each request. The Worker reads no review flag, because a pack's files are static and passed that test before their upload.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">A blind transcript checks the audio.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>Speech models generate each clip offline, and each generated version of a clip is a take. A transcriber then writes out the take with no source text, and a tool compares that transcript with the line after the language pack's rules normalize both. The tool fails an empty transcript. The site serves a take at natural speed only when its transcript matches the line.</p>
+        <p>A speech model that reads its instructions aloud before a line lengthens the take. The build therefore measures each take's speech rate, and it rejects a take slower than the minimum the language pack declares for that speed.</p>
+        <p>The transcription tool accepts a transcript only from an LLM call that opened nothing but its own clip, so the transcriber works only from the audio.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Two checks read the English before a deploy.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>Mechanical checkers read every English surface a learner reads, and an LLM judge reads each block that changed since production's commit. A finding stops the deploy before the upload.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-8 pt-4 border-t border-line text-sm text-ink-mute space-y-2">
+    <p><a class="hover:text-ink" href="https://thetrail.online/">Back to the trail</a></p>
+    <p><a class="hover:text-ink" href="https://thetrail.online/privacy">Privacy policy</a></p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every release runs on a test site first | thetrail</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="bg-canvas text-ink font-sans" data-page="architecture-releases">
+<a class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-surface-hi focus:px-3 focus:py-2 focus:rounded-md" href="#main">Skip to content</a>
+
+<div class="max-w-2xl mx-auto p-4 pb-16">
+  <header class="masthead">
+    <a class="text-xl tracking-wide" href="https://thetrail.online/">thetrail</a>
+    <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-mute">
+      <a class="hover:text-ink" href="../architecture/">Overview</a>
+      <a class="hover:text-ink" href="../architecture-worker/">The Worker</a>
+      <a class="hover:text-ink" href="../architecture-content/">Packs</a>
+      <a class="hover:text-ink" href="../architecture-releases/" aria-current="page">Releases</a>
+      <a class="hover:text-ink" href="../architecture-history/">History</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="py-8">
+      <p class="font-mono text-ink-mute text-xs uppercase tracking-widest mb-4">Architecture</p>
+      <h1 class="text-4xl font-normal tracking-wide leading-tight mb-4">Every release runs on a test site first</h1>
+      <p class="text-ink-mute text-lg leading-relaxed">A change reaches learners along one path, and each step on that path leaves a record.</p>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Production runs a pinned release.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A test site builds from <code>main</code>. Production builds from a branch of its own, pinned to one commit.</p>
+        <p><code>tools/promote.py</code> moves the branch only to a commit a test site has served. The tool first lists the commits production would miss and the migrations missing from its database. A person then types a phrase at a terminal to promote the commit.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">A deploy checks its own work.</h2>
+      <ol class="list-decimal pl-6 space-y-2 text-ink-mute leading-relaxed">
+        <li>It confirms the Cloudflare account, and it stops if the target's database lacks a declared table, column, or index.</li>
+        <li>It runs the writing checks on every English surface, and an LLM reads each changed block of English.</li>
+        <li>It audits the whole upload set for anything that should stay private.</li>
+        <li>It uploads the build, then runs a smoke check against the live site.</li>
+        <li>It fetches the changed files and a random sample of the rest, and it compares each file's SHA-256 with the build's.</li>
+        <li>It plays through the product in a real browser.</li>
+        <li>It logs each step's cost in time and in Worker requests.</li>
+      </ol>
+      <div class="space-y-3 text-ink-mute leading-relaxed mt-4">
+        <p>Production skips the browser run when the deploy log shows that the same build's files passed it on a test site.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Tests run the production code.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The repository held 372 Python test files and 234 web test files on 2026-11-01, and the browser suite held sixty-nine specs. Worker tests call the Worker's own <code>fetch</code> against a real SQLite database built from <code>schema.sql</code>, so the tests run production's own queries. Security audits run as tests too:</p>
+      </div>
+      <ul class="mt-4 space-y-2 text-ink-mute leading-relaxed">
+        <li>One test sends every write from a foreign origin and expects a refusal. Another sends each write route 4 MiB with no declared length and counts the bytes read.</li>
+        <li>TypeScript's own parser reads each prepared statement, and any value spliced into the SQL fails the run.</li>
+      </ul>
+
+      <h3 class="text-xl font-normal tracking-wide mt-5 mb-2">A change runs only the suites it can affect.</h3>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>CI picks those suites, so a change to the docs starts no web job. A person approves each run of the whole browser suite and of the full local checks. A lock runs them one at a time, because four at once exhaust the machine's memory.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Each release has a measured time and cost.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A report tool rebuilds each release cycle from its records and counts every second once. Dated runs sit in the repository beside the changed code.</p>
+      </div>
+      <ul class="mt-4 space-y-3 text-ink-mute leading-relaxed">
+        <li><span class="text-ink">Release 1.3.7 took 13 h 57 min</span> from first request to the end of the test deploy, against 16 h 31 min for 1.3.6. Waits on a person fell from twelve to four. Twenty-seven of the eighty-nine step runs failed, and the report names the cause of each.</li>
+        <li><span class="text-ink">Release 1.3.7's metered spending came to $1.31.</span> GitHub billed 80 minutes of Actions for $0.48, and Google billed $0.83 for 342 speech takes.</li>
+        <li><span class="text-ink">GitHub's runners differ by a factor of two.</span> The same web suite took 260 s in one region and 550 s in another on 2026-10-28.</li>
+        <li><span class="text-ink">Running costs stay small.</span> Cloudflare bills nothing on the Free plan, and Amazon SES bills by the message for the sign-in codes.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="mt-8 pt-4 border-t border-line text-sm text-ink-mute space-y-2">
+    <p><a class="hover:text-ink" href="https://thetrail.online/">Back to the trail</a></p>
+    <p><a class="hover:text-ink" href="https://thetrail.online/privacy">Privacy policy</a></p>
+  </footer>
+</div>
+</body>
+</html>
