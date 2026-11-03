@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incidents changed the design | thetrail</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="bg-canvas text-ink font-sans" data-page="architecture-history">
+<a class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-surface-hi focus:px-3 focus:py-2 focus:rounded-md" href="#main">Skip to content</a>
+
+<div class="max-w-2xl mx-auto p-4 pb-16">
+  <header class="masthead">
+    <a class="text-xl tracking-wide" href="https://thetrail.online/">thetrail</a>
+    <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-mute">
+      <a class="hover:text-ink" href="../architecture/">Overview</a>
+      <a class="hover:text-ink" href="../architecture-worker/">The Worker</a>
+      <a class="hover:text-ink" href="../architecture-content/">Packs</a>
+      <a class="hover:text-ink" href="../architecture-releases/">Releases</a>
+      <a class="hover:text-ink" href="../architecture-history/" aria-current="page">History</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="py-8">
+      <p class="font-mono text-ink-mute text-xs uppercase tracking-widest mb-4">Architecture</p>
+      <h1 class="text-4xl font-normal tracking-wide leading-tight mb-4">Incidents changed the design</h1>
+      <p class="text-ink-mute text-lg leading-relaxed">thetrail teaches Spanish along the Camino Francés, a walking route in Spain. A pack holds a route's data, and a take is one recording of a line. The other architecture pages describe the current system, and each of these incidents and changes produced a rule on those pages.</p>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Speech models read their instructions aloud on 2026-09-27.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A comparison run recorded ninety-three lines through two newer speech models, and both read the direction for the pace aloud before each line. A learner heard an instruction first and the question after it. The build kept the recording made last for each line, so those takes won, and eighty-six of the 248 clips the product served came from that run. Those clips averaged 15.3 seconds against 6.2 seconds for the original run.</p>
+        <p>An instruction read aloud lengthens a take and lowers its speech rate. The build now rejects a take below the minimum speech rate for its pace, and it chooses a clean take of the same line where one exists.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">The deploy tool published a pack's working files on 2026-09-30.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The build ended with a recursive copy of the pack directory, so the build machine's working files reached the public internet. Six files went live, among them the clip database and a ledger of every recording's model and cost. None of the six held a credential.</p>
+        <p>The build now copies an enumerated list of files, and an audit reads the whole upload set before each upload. The fix reached production the same day.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">A one-line sign-in fix shipped thirteen other commits on 2026-10-13.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>Production and the test sites all took their builds from <code>main</code>. Production served a build from 2026-10-11, and thirteen commits on <code>main</code> had reached only the test sites. The two production deploys shipped those thirteen commits along with the fix.</p>
+        <p>Production now builds from a branch of its own, and only a promotion moves that branch.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Blind translation replaced a person's review on 2026-10-14.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The product began with a rule that a person reviews all generated content before a learner sees it. Its curator reads no Spanish, so that review proved nothing about a Spanish line.</p>
+        <p>Two LLMs now translate each Spanish string into English without seeing the English meaning stored beside it, and a third LLM judges the result.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">The blind transcription check proved not to be blind on 2026-10-16.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A call that checked a clip held every tool, and its prompt did not say where the clip was, so the LLM searched the disk for it. An audit of 386 such calls found twenty-one that did more than open the clip. Six of those read the pack's own records, which hold the answer.</p>
+        <p>The transcription tool now accepts a transcript only from a call that opened only its own clip. Older verdicts came from a weaker check, and we still have to repeat them.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Reusing test workers nearly halved the web suite's run time on 2026-10-22.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A worker that runs one test file after another took a run from 104 s to 56 s.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">A rule slowed the post-deploy check by a factor of four on 2026-10-25.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The check fetches served files and compares them with the build, and a latency rule lowers how many it asks for at once. One large clip raised the measured latency, and the rule lowered the count to one. Two full checks of 7,319 files took 815 s and 784 s. An earlier check took 183 s over 7,229 files, at a fixed sixteen fetches at once.</p>
+        <p>The rule now allows for a large response's size, and the count can climb again after a slowdown.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">An audit found a cheap way to stop every site on 2026-10-27.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>All sites share one account's 5,000,000 D1 rows read a day. The caps on a learner's reports counted every report in the day's window on each request, refused requests included. The audit measured that 2,428 anonymous requests could spend the whole allowance and stop every site until midnight UTC.</p>
+        <p>Each cap now stops reading at its limit, and a test reads SQLite's own plan to hold it there.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">The Worker began to require a session for the walk on 2026-10-28.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A request with no session now lands on the sign-in page.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">The deploy tool moved the audio clips to a bucket on 2026-10-29.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A Worker version may upload 20,000 static files. Clips made up 11,729 of the Camino Francés's 12,150 files, and two routes of that size hold 23,458 clips.</p>
+        <p>The clips now live in a bucket for each site, and each deploy uploads only the new clips.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-8 pt-4 border-t border-line text-sm text-ink-mute space-y-2">
+    <p><a class="hover:text-ink" href="https://thetrail.online/">Back to the trail</a></p>
+    <p><a class="hover:text-ink" href="https://thetrail.online/privacy">Privacy policy</a></p>
+  </footer>
+</div>
+</body>
+</html>

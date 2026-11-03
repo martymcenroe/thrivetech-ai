@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Worker and its gates | thetrail</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="bg-canvas text-ink font-sans" data-page="architecture-worker">
+<a class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-surface-hi focus:px-3 focus:py-2 focus:rounded-md" href="#main">Skip to content</a>
+
+<div class="max-w-2xl mx-auto p-4 pb-16">
+  <header class="masthead">
+    <a class="text-xl tracking-wide" href="https://thetrail.online/">thetrail</a>
+    <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-mute">
+      <a class="hover:text-ink" href="../architecture/">Overview</a>
+      <a class="hover:text-ink" href="../architecture-worker/" aria-current="page">The Worker</a>
+      <a class="hover:text-ink" href="../architecture-content/">Packs</a>
+      <a class="hover:text-ink" href="../architecture-releases/">Releases</a>
+      <a class="hover:text-ink" href="../architecture-history/">History</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="py-8">
+      <p class="font-mono text-ink-mute text-xs uppercase tracking-widest mb-4">Architecture</p>
+      <h1 class="text-4xl font-normal tracking-wide leading-tight mb-4">The Worker and its gates</h1>
+      <p class="text-ink-mute text-lg leading-relaxed">One Worker answers every route and every page of a site. Its source is <code>src/index.ts</code> and the modules beside it.</p>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Every route declares a gate.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p><code>ROUTES</code> lists every route the Worker answers and the gate on each. The gate runs before the handler, so a route's posture is one field anyone can read.</p>
+      </div>
+      <ul class="mt-4 space-y-2 text-ink-mute leading-relaxed">
+        <li>The <span class="text-ink">public</span> gate admits anyone, and the route must state its reason in writing.</li>
+        <li>The <span class="text-ink">session</span> gate admits a signed-in user whose account is open.</li>
+        <li>The <span class="text-ink">test-token</span> gate admits a token that a deploy armed on the test site. Production answers it with a 404.</li>
+        <li>The <span class="text-ink">operator</span> gate admits the site's owner, signed in with GitHub. Anyone else receives the same bytes as a page that does not exist, and each deploy's smoke check compares the two.</li>
+      </ul>
+      <div class="space-y-3 text-ink-mute leading-relaxed mt-4">
+        <p>A test holds the public routes to a closed list. Opening one takes an edit in two files, so the diff shows the public surface growing.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">The Worker runs first for every page.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>Cloudflare's asset server answers a static file without running the Worker. That speed suits a script or a picture, and it would hand a gated page to anyone who asked. The list <code>run_worker_first</code> in <code>wrangler.jsonc</code> therefore names each page and each gated path, and it leaves the bundle's scripts and pictures to the asset server. Those files cost none of the Free plan's 100,000 daily requests.</p>
+        <p>The Worker then writes each page opened to a visit log of its own, after the answer has gone. A failed write records its reason and never reaches the visitor. The log sets no cookie, and for a signed-in learner it keeps no place finer than the country.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Every cap has a name.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>A cap is a named constant, and the code reads it before the write.</p>
+      </div>
+      <ul class="mt-4 space-y-2 text-ink-mute leading-relaxed" data-testid="named-caps">
+        <li>A network may ask for five sign-in codes in an hour.</li>
+        <li>Code checks stop at ten an hour for an email address and thirty for a network.</li>
+        <li>An account may send sixty reports of something wrong on the walk in a day, and all accounts together may send two thousand.</li>
+        <li>The visit log records 20,000 visits in a day and counts 2,500 more by hour and place. It drops any visit beyond those 22,500.</li>
+      </ul>
+      <div class="space-y-3 text-ink-mute leading-relaxed mt-4">
+        <p>Each visit writes two rows, so a flood costs the log no more than 45,000 rows a day, under the 100,000 the account's database allows. Each route also stops reading a body at its own limit, whatever length the request declares. IPv6 gives one client a whole network of addresses, so a cap counts the first 64 bits of an address as one source.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">A sign-in says nothing about who has an account.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>Each sign-in needs a code from an email. A request for a code gets the same answer in the same time for every email. The work that depends on whether the email has an account runs after the answer leaves.</p>
+        <p>Turnstile fails closed, so without its secret the route refuses every request. The database keeps each session token as a hash, and the server refuses a session older than 30 days, whatever the browser kept.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">Every answer leaves through one function.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>The function <code>harden</code> adds the content security policy and the other hardening headers at the Worker's one exit. An error takes the same exit, so a failure no route caught still carries them.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">The Free plan is the ceiling.</h2>
+      <div class="space-y-3 text-ink-mute leading-relaxed">
+        <p>Both sites share one account's daily allowance, and past a limit production fails too.</p>
+        <p>Audio clips live in a bucket for each site, because a Worker version may upload 20,000 static files, and one walking route, the Camino Francés, holds 11,729 clips. The Worker answers an iPad's byte-range requests itself, because the asset server returns the whole file and an iPad then refuses to play it.</p>
+        <p>An audit plans every statement a stranger can reach against the real schema. A cap that counts the whole day's window on each request can spend the account's daily reads. Each cap therefore stops reading at its limit, and a test reads SQLite's own plan to hold it there.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="text-2xl font-normal tracking-wide mb-3">These gaps stay open.</h2>
+      <ul class="space-y-2 text-ink-mute leading-relaxed">
+        <li>No rule at the edge slows one address yet, so a flood spends Worker requests before a cap refuses it.</li>
+        <li>The Strict-Transport-Security header runs at a short 300 seconds until a later release raises it to 180 days.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="mt-8 pt-4 border-t border-line text-sm text-ink-mute space-y-2">
+    <p><a class="hover:text-ink" href="https://thetrail.online/">Back to the trail</a></p>
+    <p><a class="hover:text-ink" href="https://thetrail.online/privacy">Privacy policy</a></p>
+  </footer>
+</div>
+</body>
+</html>
